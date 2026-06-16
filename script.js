@@ -1,13 +1,3 @@
-function({
-  const introMessages = [
-"안녕하세요 😊 저는 당신의 생각을 확장해주는 철학 질문 챗봇입니다. 행복, 공리주의, 도덕 중 하나를 입력해보세요.",
-"반가워요. 저는 질문을 통해 당신의 생각을 깊게 만드는 챗봇입니다. 어떤 주제부터 시작할까요?",
-"철학은 정답보다 질문입니다. 함께 탐구를 시작해볼까요? (행복 / 공리주의 / 도덕)"
-];
-
-addMsg(introMessages[Math.floor(Math.random() * introMessages.length)], "bot");
-
-};
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("questionInput");
 const btn = document.getElementById("sendBtn");
@@ -17,39 +7,55 @@ let usedQuestions = [];
 let conversationMemory = [];
 
 // =======================
+// 🔥 바로 뜨는 자기소개
 // =======================
 
+window.onload = function () {
+
+const introMessages = [
+"안녕하세요 😊 저는 당신의 생각을 확장해주는 철학 질문 챗봇입니다.",
+"반가워요. 저는 질문을 통해 당신의 사고를 깊게 만드는 챗봇입니다.",
+"철학은 정답보다 질문입니다. 함께 시작해볼까요?"
+];
+
+addMsg(random(introMessages), "bot");
+};
+
+// =======================
+// 질문 리스트 (전체 포함)
+// =======================
+
+// 행복
 const happinessQuestions = [
-"행복을 감정이라고 생각하나요, 아니면 삶 전체의 상태라고 생각하나요?",
+"행복은 감정일까요, 삶의 상태일까요?",
 "행복은 개인마다 다를까요?",
-"행복한 삶과 의미 있는 삶은 같은 삶일까요?",
-"행복은 목표일까요, 결과일까요?",
-"행복과 쾌락은 같은 것일까요?",
-"행복은 타인과의 관계 없이도 가능할까요?",
-"행복은 노력으로 얻는 것일까요, 운에 달린 것일까요?",
-"행복과 성공은 같은 것일까요?",
-"행복은 인간의 최종 목적일까요?"
+"행복과 의미는 같은 것일까요?",
+"행복은 목표일까요 결과일까요?",
+"행복은 타인 없이도 가능할까요?",
+"행복은 선택일까요 운일까요?",
+"행복과 성공은 같은 것일까요?"
 ];
 
+// 공리주의
 const utilQuestions = [
-"다수의 행복을 위해 소수의 희생이 허용될 수 있을까요?",
-"공리주의는 개인의 권리를 충분히 보호할 수 있을까요?",
-"행복을 수치로 계산할 수 있을까요?",
-"결과만 좋으면 과정은 중요하지 않을까요?",
-"정의와 행복이 충돌한다면 무엇을 우선해야 할까요?",
-"최대 다수의 최대 행복은 항상 옳을까요?"
+"다수의 행복을 위해 소수의 희생은 정당할까요?",
+"공리주의는 정의로운 이론일까요?",
+"행복은 수치로 계산 가능할까요?",
+"결과가 좋으면 과정은 중요하지 않을까요?",
+"개인의 권리는 충분히 보호될 수 있을까요?"
 ];
 
+// 도덕적 고려
 const moralQuestions = [
-"동물은 인간과 동등한 권리를 가져야 할까요?",
+"동물은 도덕적 권리를 가질까요?",
 "식물도 도덕적 고려 대상일까요?",
-"AI가 고통을 느낀다면 도덕적 존재일까요?",
-"미래 세대도 도덕적 고려 대상일까요?",
 "자연은 인간과 동등한 가치를 가질까요?",
-"도덕 공동체는 어디까지 확장되어야 할까요?"
+"미래 세대도 도덕적 고려 대상일까요?",
+"AI도 도덕적 존재가 될 수 있을까요?"
 ];
 
 // =======================
+// 이벤트
 // =======================
 
 btn.addEventListener("click", runChat);
@@ -78,9 +84,9 @@ detectTopic(text);
 
 if (!currentTopic) {
 const casualReplies = [
-"행복, 공리주의, 도덕 중 하나를 입력해보세요.",
-"흥미로운 질문이네요. 주제를 선택해볼까요?",
-"철학적 탐구를 계속해볼까요?"
+"행복 / 공리 / 도덕 중 하나를 입력해주세요.",
+"주제를 선택하면 질문을 시작할게요 😊",
+"어떤 철학 주제를 탐구해볼까요?"
 ];
 
 addMsg(random(casualReplies), "bot");
@@ -93,6 +99,7 @@ addMsg(getRandomQuestion(), "bot");
 }
 
 // =======================
+// 주제 감지
 // =======================
 
 function detectTopic(text) {
@@ -131,12 +138,12 @@ const available = currentTopic.filter(q => !usedQuestions.includes(q));
 
 if (usedQuestions.length >= 10) {
 
-const summary = generateSummary();
+const result = generateSummary();
 
 usedQuestions = [];
 currentTopic = null;
 
-return summary + "\n\n지금까지 생각을 정리해볼까요?";
+return result + "\n\n이제 자신의 입장을 정리해볼까요?";
 }
 
 if (available.length === 0) {
@@ -151,6 +158,7 @@ return q;
 }
 
 // =======================
+// 요약 생성
 // =======================
 
 function generateSummary() {
@@ -207,8 +215,9 @@ chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 // =======================
+// 유틸
 // =======================
 
 function random(arr) {
 return arr[Math.floor(Math.random() * arr.length)];
-})
+}
