@@ -1,3 +1,11 @@
+window.addEventListener("DOMContentLoaded", () => {
+
+    addMsg(
+        "안녕하세요. 저는 TESSBOT입니다.\n\n정답을 알려주기보다 질문을 통해 생각을 확장하는 철학 탐구 도우미입니다.\n\n탐구 주제:\n• 행복\n• 공리주의\n• 도덕적 고려의 범위",
+        "bot"
+    );
+
+});
 const chatBox = document.getElementById("chatBox");
 const input = document.getElementById("questionInput");
 const btn = document.getElementById("sendBtn");
