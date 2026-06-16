@@ -1,4 +1,4 @@
-function(){
+function({
   const introMessages = [
 "안녕하세요 😊 저는 당신의 생각을 확장해주는 철학 질문 챗봇입니다. 행복, 공리주의, 도덕 중 하나를 입력해보세요.",
 "반가워요. 저는 질문을 통해 당신의 생각을 깊게 만드는 챗봇입니다. 어떤 주제부터 시작할까요?",
@@ -211,4 +211,4 @@ chatBox.scrollTop = chatBox.scrollHeight;
 
 function random(arr) {
 return arr[Math.floor(Math.random() * arr.length)];
-}
+})
